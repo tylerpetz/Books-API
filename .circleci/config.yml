@@ -31,6 +31,7 @@ jobs:
           working_directory: ~/repo/frontend
           command: |
             npm install
-            npm run build --production
+            sudo rm -rf ../public/{js,css,img}
+            npm run deploy --production
 
       # node cache
