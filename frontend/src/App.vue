@@ -6,9 +6,6 @@
           <h1 class="title">
             Books to Read
           </h1>
-          <h2 class="subtitle">
-            Tyler Petz
-          </h2>
         </div>
       </div>
     </section>
@@ -17,6 +14,18 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'App',
+  computed: mapState(['books']),
+  mounted() {
+    this.$store.dispatch("fetchBooks")       
+  },
+};
+</script>
 
 <style lang="scss">
 .hero {
@@ -28,6 +37,22 @@
 }
 
 .card {
+  margin-bottom: 1rem;
+
+  .title {
+    text-transform: capitalize;
+  }
+
+  .subtitle {
+    text-transform: capitalize;
+  }
+}
+
+.add-book {
   margin-bottom: 2rem;
+}
+
+.buttons {
+  margin-top: 1rem;
 }
 </style>

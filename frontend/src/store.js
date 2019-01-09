@@ -5,14 +5,6 @@ import router from './router'
 
 Vue.use(Vuex)
 
-function Book({id, author, title, details, pubdate}) {
-  this.id = id;
-  this.author = author;
-  this.title = title;
-  this.details = details;
-  this.pubdate = pubdate;
-}
-
 export default new Vuex.Store({
   state: {
     books: [],
@@ -25,11 +17,22 @@ export default new Vuex.Store({
     SET_BOOK(state, selectedBook) {
       state.selectedBook = selectedBook
       router.push(`/books/${selectedBook.id}`);
+    },
+    ADD_BOOK(state, book) {
+      state.books.push(book);
+    },
+    EDIT_BOOK(state, book) {
+      console.log(book);
+    },
+    DELETE_BOOK(state, id) {
+      let index = state.books.findIndex(book => book.id === id);
+      state.books.splice(index, 1);
+      router.push('/');
     }
   },
   actions: {
-    fetchBooks({ commit }) {         
-      axios.get('/api/books')
+    async fetchBooks({ commit }) {         
+      await axios.get('/api/books')
       .then((response) => {
         commit("FETCH_BOOKS", response.data)
       })
@@ -39,22 +42,23 @@ export default new Vuex.Store({
     },
     setBook({ commit }, book) {
       commit("SET_BOOK", book)
-    }
-    /* create() {
-      axios.get('/api/books/create').then(({ data }) => {
-        this.books.push(new Book(data));
+    },
+    createBook({ commit }, book) {
+      book.pub_date = book.pub_date.toISOString().split('T')[0];
+      axios.post('/api/books', book).then(({ data }) => {
+        commit("ADD_BOOK", data);
       });
     },
-    update(id, color) {
-      axios.put(`/api/books/${id}`, { color }).then(() => {
-        this.books.find(book => book.id === id).color = color;
+    updateBook({ commit }, book) {
+      axios.put(`/api/books/${book.id}`, book).then(({ data }) => {
+        commit("EDIT_BOOK", data);
       });
     },
-    del(id) {
+    deleteBook({ commit }, id) {
+      console.log(id);
       axios.delete(`/api/books/${id}`).then(() => {
-        let index = this.books.findIndex(book => book.id === id);
-        this.books.splice(index, 1);
+        commit("DELETE_BOOK", id);
       });
-    } */
+    }
   }
 })
