@@ -7,6 +7,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-jessie-node-browsers
+    working_directory: ~/repo
     steps:
       - checkout
 
@@ -25,7 +26,11 @@ jobs:
           paths:
             - vendor
 
-      - run: cd ~/project/frontend
-      - run: npm install
-      - run: npm run build --production
+      - run:
+          name: Installing deployment dependencies
+          working_directory: ~/repo/frontend
+          command: |
+            npm install
+            npm run build --production
+
       # node cache
