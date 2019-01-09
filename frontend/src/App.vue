@@ -56,6 +56,8 @@ export default {
 }
 
 .main {
+  min-height: 90vh;
+
   @media screen and (max-width: 1024px) {
     padding: 0 10px;
   }
