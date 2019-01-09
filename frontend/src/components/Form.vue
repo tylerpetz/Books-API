@@ -1,9 +1,9 @@
 <template>
-    <div class="form">
-        <h3>Name: {{ author | properCase }}</h3>
-        <h3>Author: {{ title | properCase }}</h3>
-        <button @click="del">Delete</button>
-    </div>
+  <div class="form">
+    <h3>Name: {{ author | properCase }}</h3>
+    <h3>Author: {{ title | properCase }}</h3>
+    <button @click="del">Delete</button>
+  </div>
 </template>
 
 <script>

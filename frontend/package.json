@@ -1,5 +1,7 @@
 {
-  "name": "frontend",
+  "name": "books-to-read",
+  "description": "Books to Read",
+  "author": "Tyler Petz",
   "version": "0.1.0",
   "private": true,
   "scripts": {

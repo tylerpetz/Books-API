@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
+    <section class="hero is-link is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Books to Read
+          </h1>
+          <h2 class="subtitle">
+            Tyler Petz
+          </h2>
+        </div>
+      </div>
+    </section>
+    <div class="container">
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.hero {
+  margin-bottom: 2rem;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+
+.container {
+  max-width: 54rem;
+}
+
+.card {
+  margin-bottom: 2rem;
 }
 </style>
