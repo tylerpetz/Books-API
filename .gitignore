@@ -3,7 +3,6 @@
 /public/storage
 /public/css/*
 /public/js/*
-/resources/views/index.blade.php
 /storage/*.key
 /vendor
 .env

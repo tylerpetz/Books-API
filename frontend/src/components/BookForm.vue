@@ -24,12 +24,13 @@
           </div>
         </div>
         <div class="column is-one-third">
-          <div class="field">
-            <label class="label">Publish Date</label>
-            <div class="control">
-              <input class="input" v-model="book.pub_date" type="text" />
-            </div>
-          </div>
+          <b-field label="Publish Date">
+            <b-datepicker
+              v-model="book.pub_date"
+              placeholder="Click to select..."
+              icon="calendar-today">
+            </b-datepicker>
+          </b-field>
         </div>
         <div class="column is-full">
           <div class="field">
@@ -47,6 +48,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'BookForm',
@@ -65,7 +67,6 @@ export default {
       createBook: 'createBook',
     }),
   },
-  props: ['id', 'author', 'title', 'pubdate'],
   filters: {
     properCase(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);

@@ -21,12 +21,13 @@
               </div>
             </div>
             <div class="column is-one-third">
-              <div class="field">
-                <label class="label">Publish Date</label>
-                <div class="control">
-                  <input class="input" v-model="selectedBook.pub_date" type="text" />
-                </div>
-              </div>
+              <b-field label="Publish Date">
+                <b-datepicker
+                  v-model="selectedBook.pub_date"
+                  placeholder="Click to select..."
+                  icon="calendar-today">
+                </b-datepicker>
+              </b-field>
             </div>
             <div class="column is-full">
               <div class="field">
@@ -47,7 +48,7 @@
             {{ selectedBook.author }}
           </p>
           <p>Details: {{ selectedBook.details }}</p>
-          <p>Published on: {{ selectedBook.pub_date.toString() }}</p>
+          <p>Published on: {{ fixDate }}</p>
         </div>
         <div class="buttons are-medium" v-if="!editingBook">
           <a class="button is-info" @click="toggleEdit">Edit</a>
@@ -61,6 +62,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Book',
@@ -97,7 +99,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['selectedBook'])
+    ...mapState(['selectedBook']),
+    fixDate() {
+      return moment(this.selectedBook.pub_date).format('MM/DD/YYYY')
+    }
   }
 }
 </script>

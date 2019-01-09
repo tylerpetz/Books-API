@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import moment from 'moment'
 import router from './router'
 
 Vue.use(Vuex)
@@ -12,6 +13,10 @@ export default new Vuex.Store({
   },
   mutations: {
     FETCH_BOOKS(state, books) {
+      books.forEach(function(book){
+        book['pub_date'] = moment(book['pub_date']).toDate()
+      });
+
       state.books = books
     },
     SET_BOOK(state, selectedBook) {
@@ -19,6 +24,7 @@ export default new Vuex.Store({
       router.push(`/books/${selectedBook.id}`);
     },
     ADD_BOOK(state, book) {
+      book.pub_date = moment(book.pub_date);
       state.books.push(book);
     },
     EDIT_BOOK(state, book) {
@@ -41,21 +47,22 @@ export default new Vuex.Store({
       }))
     },
     setBook({ commit }, book) {
+      book.pub_date = moment(book.pub_date).toDate();
       commit("SET_BOOK", book)
     },
     createBook({ commit }, book) {
-      book.pub_date = book.pub_date.toISOString().split('T')[0];
+      book.pub_date = moment(book.pub_date).toDate();
       axios.post('/api/books', book).then(({ data }) => {
         commit("ADD_BOOK", data);
       });
     },
     updateBook({ commit }, book) {
+      book.pub_date = moment(book.pub_date).toDate();
       axios.put(`/api/books/${book.id}`, book).then(({ data }) => {
         commit("EDIT_BOOK", data);
       });
     },
     deleteBook({ commit }, id) {
-      console.log(id);
       axios.delete(`/api/books/${id}`).then(() => {
         commit("DELETE_BOOK", id);
       });

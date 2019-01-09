@@ -23,7 +23,7 @@ class BookSeeder extends Seeder
                 'author' => $faker->name,
                 'title' => $faker->words(3, true),
                 'details' => $faker->sentence,
-                'pub_date' => $faker->date
+                'pub_date' => '1999-12-31'
             ]);
         }
     }
