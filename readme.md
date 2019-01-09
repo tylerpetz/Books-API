@@ -41,6 +41,8 @@ php artisan migrate:refresh --seed
 php artisan serve
 ```
 
+Go to `http://localhost:8000/` to see the current project
+
 ### Development
 
 Run the compiler and watch front-end files
@@ -56,7 +58,7 @@ npm run serve
 npm run test:unit
 ```
 
-Go to `http://localhost:8080/` for a live reloading front-end
+Go to `http://localhost:8080/` for a live reloading front-end (note the port change)
 
 ### Deployment
 
