@@ -43,6 +43,10 @@ export default {
   margin-bottom: 2rem;
 
   .title {
+    @media screen and (max-width: 640px) {
+      font-size: 1.5rem;
+    }
+    
     a {
       color: #363636;
 
