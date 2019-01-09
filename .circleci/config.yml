@@ -6,7 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-      # Specify the version you desire here
       - image: circleci/php:7.1-jessie-node-browsers
     steps:
       - checkout
@@ -26,4 +25,7 @@ jobs:
           paths:
             - vendor
 
+      - run: cd ./frontend
+      - run: npm install
+      - run: npm run build
       # node cache
