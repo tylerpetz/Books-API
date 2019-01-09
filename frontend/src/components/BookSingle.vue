@@ -6,17 +6,17 @@
           <form v-on:submit.prevent="saveBook" class="columns is-multiline">
             <div class="column is-one-third">
               <div class="field">
-                <label class="label">Author</label>
+                <label class="label">Title</label>
                 <div class="control">
-                  <input class="input" v-model="selectedBook.author" type="text" />
+                  <input class="input" v-model="selectedBook.title" type="text" />
                 </div>
               </div>
             </div>
             <div class="column is-one-third">
               <div class="field">
-                <label class="label">Title</label>
+                <label class="label">Author</label>
                 <div class="control">
-                  <input class="input" v-model="selectedBook.title" type="text" />
+                  <input class="input" v-model="selectedBook.author" type="text" />
                 </div>
               </div>
             </div>
@@ -36,7 +36,7 @@
                   <textarea class="textarea" v-model="selectedBook.details" />
                 </div>
               </div>
-              <button type="submit" class="button is-primary">Save</button>
+              <button type="submit" class="button is-primary">Save Book</button>
             </div>
           </form>
         </div>
@@ -63,6 +63,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
+import router from '../router'
 
 export default {
   name: 'Book',
@@ -82,7 +83,7 @@ export default {
     saveBook() {
       this.updateBook(this.selectedBook)
       this.toggleEdit()
-      this.$toast.open(`${this.selectedBook.title} updated!`)
+      this.$toast.open(`<b>${this.selectedBook.title}</b> was updated.`)
     },
     confirmRemove() {
       this.$dialog.confirm({
@@ -92,8 +93,9 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          this.$toast.open(`${this.selectedBook.title} deleted!`)
+          this.$toast.open(`<b>${this.selectedBook.title}</b> has been deleted`)
           this.deleteBook(this.selectedBook.id)
+          router.push('/')
         }
       })
     }

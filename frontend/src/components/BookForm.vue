@@ -6,20 +6,20 @@
       </p>
     </div>
     <div class="card-content">
-      <form v-on:submit.prevent="createBook(book)" class="columns is-multiline">
+      <form v-on:submit.prevent="createAndClear" class="columns is-multiline">
         <div class="column is-one-third">
           <div class="field">
-            <label class="label">Author</label>
+            <label class="label">Title</label>
             <div class="control">
-              <input class="input" v-model="book.author" type="text" />
+              <input class="input" v-model="book.title" type="text" required />
             </div>
           </div>
         </div>
         <div class="column is-one-third">
           <div class="field">
-            <label class="label">Title</label>
+            <label class="label">Author</label>
             <div class="control">
-              <input class="input" v-model="book.title" type="text" />
+              <input class="input" v-model="book.author" type="text" required />
             </div>
           </div>
         </div>
@@ -28,7 +28,8 @@
             <b-datepicker
               v-model="book.pub_date"
               placeholder="Click to select..."
-              icon="calendar-today">
+              icon="calendar-today"
+              required>
             </b-datepicker>
           </b-field>
         </div>
@@ -36,10 +37,10 @@
           <div class="field">
             <label class="label">Description</label>
             <div class="control">
-              <textarea class="textarea" v-model="book.details" />
+              <textarea class="textarea" v-model="book.details" required/>
             </div>
           </div>
-          <button type="submit" class="button is-primary">Submit</button>
+          <button type="submit" class="button is-primary">Add Book</button>
         </div>
       </form>
     </div>
@@ -48,15 +49,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-import moment from 'moment'
 
 export default {
   name: 'BookForm',
   data() {
     return {
       book: {
-        author: '',
         title: '',
+        author: '',
         details: '',
         pub_date: null
       }
@@ -66,6 +66,16 @@ export default {
     ...mapActions({
       createBook: 'createBook',
     }),
+    createAndClear() {
+      this.createBook(this.book)
+      this.$toast.open(`<b>${this.book.title}</b> was added to your reading list.`)
+      this.book = {
+        title: '',
+        author: '',
+        details: '',
+        pub_date: null
+      }
+    }
   },
   filters: {
     properCase(string) {
