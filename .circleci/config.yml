@@ -6,30 +6,24 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mysql:9.4
-
-    working_directory: ~/repo
-
+      # Specify the version you desire here
+      - image: circleci/php:7.1-jessie-node-browsers
     steps:
       - checkout
 
-      # Download and cache dependencies
+      # composer cache
       - restore_cache:
           keys:
+          # "composer.lock" can be used if it is committed to the repo
           - v1-dependencies-{{ checksum "composer.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: ls -li
-      - run: composer install --no-interaction --no-ansi --no-progress --no-suggest --no-scripts --optimize-autoloader
+      - run: composer install -n --prefer-dist
 
       - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
           paths:
-            - ./vendor
-          key: v1-dependencies-{{ checksum "composer.json" }}
+            - vendor
+
+      # node cache
