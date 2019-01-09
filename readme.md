@@ -72,8 +72,10 @@ Go to `http://localhost:8080/` for a live reloading front-end (note the port cha
 3. Center filtering controls, capitalize asc/desc
 4. Explore more clever controls than the select dropdown/switch for sortBy/sortDirection
 5. Add in a simple footer and give yourself some credit
+6. Link page title to homepage
 
 #### UX
 1. After adding a new book, clear the inputs and display a success message
 2. Sometimes after deleting a book, you aren't routed back to the main page
 3. Capitalize book titles in the Add/Edit/Delete notifications
+4. Add required to field inputs

@@ -18,17 +18,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// List books
-Route::get('books', 'BookController@index');
+Route::group(['prefix' => 'books'], function() {
 
-// One Book
-Route::get('books/{book}', 'BookController@show');
+    // List books
+    Route::get('/', 'BookController@index')->name('books');
 
-// Add Book
-Route::post('books', 'BookController@store');
+    // One Book
+    Route::get('/{book}', 'BookController@show')->name('books.show');
 
-// Update Book
-Route::put('books/{book}', 'BookController@update');
+    // Add Book
+    Route::post('/', 'BookController@store')->name('books.store');
 
-// Delete Book
-Route::delete('books/{book}', 'BookController@delete');
+    // Update Book
+    Route::put('/{book}', 'BookController@update')->name('books.update');
+
+    // Delete Book
+    Route::delete('/{book}', 'BookController@delete')->name('books.delete');
+
+});
