@@ -26,10 +26,10 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - run: ls -li
       - run: composer install --no-interaction --no-ansi --no-progress --no-suggest --no-scripts --optimize-autoloader
 
       - save_cache:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
-          
