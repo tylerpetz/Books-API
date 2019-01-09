@@ -12,7 +12,7 @@ My app for tracking which books I'd like to read
 
 ```
 # Clone the repository
-git clone repo my-books
+git clone git@github.com:tylerpetz/Books-API.git my-books
 
 # Enter the project directory
 cd my-books
@@ -31,10 +31,10 @@ composer install
 
 # Install front-end depenencies
 cd frontend
-npm run build
-cd ../
+npm install && npm run build
 
 # Run the database migrations and seed with data
+cd ../
 php artisan migrate:refresh --seed
 
 # Start the server
