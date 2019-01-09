@@ -25,7 +25,7 @@ jobs:
           paths:
             - vendor
 
-      - run: cd ./frontend
+      - run: cd ~/repo/frontend
       - run: npm install
-      - run: npm run build
+      - run: npm run build --production
       # node cache
