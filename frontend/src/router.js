@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import BookSingle from './components/BookSingle.vue'
+import Login from './components/Login.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/books/:id',
       name: 'book',
       component: BookSingle
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ],
   scrollBehavior (to, from, savedPosition) {

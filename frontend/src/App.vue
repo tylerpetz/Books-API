@@ -33,7 +33,8 @@ export default {
   name: 'App',
   computed: mapState(['books']),
   mounted() {
-    this.$store.dispatch("fetchBooks")       
+    console.log('check auth')
+    /* this.$store.dispatch("fetchBooks") */       
   },
 };
 </script>
@@ -46,7 +47,7 @@ export default {
     @media screen and (max-width: 640px) {
       font-size: 1.5rem;
     }
-    
+
     a {
       color: #363636;
 

@@ -16,9 +16,15 @@ class UserSeeder extends Seeder
         User::truncate();
 
         User::create([
-            'name' => 'admin',
+            'name' => 'Tyler',
             'email' => 'tylerpetz@gmail.com',
             'password' => 'admin',
+        ]);
+
+        User::create([
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'password' => 'test',
         ]);
     }
 }

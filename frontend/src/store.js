@@ -34,8 +34,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    registerUser({ commit }, user) {
+      axios.post('/api/register', this.user).then(({ data }) => {
+        console.log(data)
+        //commit("LOGIN", user)
+      })
+    },
     async fetchBooks({ commit }) {         
-      await axios.get('/api/books')
+      axios.get('/api/books')
       .then((response) => {
         commit("FETCH_BOOKS", response.data)
       })
