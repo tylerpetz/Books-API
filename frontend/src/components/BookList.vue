@@ -9,8 +9,8 @@
             <option value="title">Title</option>
           </b-select>
           <b-switch v-model="currentDirection"
-            true-value="asc"
-            false-value="desc">
+            true-value="desc"
+            false-value="asc">
             {{ currentDirection }}
           </b-switch>
         </div>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       currentOrder: 'id',
-      currentDirection: 'desc'
+      currentDirection: 'asc'
     }
   },
   props: ['books'],
