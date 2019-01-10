@@ -8,7 +8,7 @@
               <div class="field">
                 <label class="label">Title</label>
                 <div class="control">
-                  <input class="input" v-model="selectedBook.title" type="text" />
+                  <input class="input" v-model="selectedBook.title" type="text" required />
                 </div>
               </div>
             </div>
@@ -16,7 +16,7 @@
               <div class="field">
                 <label class="label">Author</label>
                 <div class="control">
-                  <input class="input" v-model="selectedBook.author" type="text" />
+                  <input class="input" v-model="selectedBook.author" type="text" required />
                 </div>
               </div>
             </div>
@@ -25,7 +25,8 @@
                 <b-datepicker
                   v-model="selectedBook.pub_date"
                   placeholder="Click to select..."
-                  icon="calendar-today">
+                  icon="calendar-today"
+                  required>
                 </b-datepicker>
               </b-field>
             </div>
@@ -33,7 +34,7 @@
               <div class="field">
                 <label class="label">Description</label>
                 <div class="control">
-                  <textarea class="textarea" v-model="selectedBook.details" />
+                  <textarea class="textarea" v-model="selectedBook.details" required />
                 </div>
               </div>
               <button type="submit" class="button is-primary">Save Book</button>
@@ -81,11 +82,22 @@ export default {
       this.editingBook = !this.editingBook;
     },
     saveBook() {
+      // API Call
       this.updateBook(this.selectedBook)
+
+      // Switch back to details view
       this.toggleEdit()
-      this.$toast.open(`<b>${this.selectedBook.title}</b> was updated.`)
+
+      // Show notification
+      this.$toast.open({
+        duration: 3000,
+        message: `<b>${this.selectedBook.title}</b> was updated.`,
+        position: 'is-bottom',
+        type: 'is-success'
+      })
     },
     confirmRemove() {
+      // Show confirm dialog
       this.$dialog.confirm({
         title: `Deleting ${this.selectedBook.title}`,
         message: 'Are you sure you want to <b>delete</b> this book? This action cannot be undone.',
@@ -93,8 +105,18 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          this.$toast.open(`<b>${this.selectedBook.title}</b> has been deleted`)
+          // API Call
           this.deleteBook(this.selectedBook.id)
+
+          // Show notification
+          this.$toast.open({
+            duration: 3000,
+            message: `<b>${this.selectedBook.title}</b> has been deleted`,
+            position: 'is-bottom',
+            type: 'is-success'
+          })
+
+          // Navigate home
           router.push('/')
         }
       })

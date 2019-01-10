@@ -66,20 +66,41 @@ export default {
     ...mapActions({
       createBook: 'createBook',
     }),
-    createAndClear() {
+    createAndClear(event) {
+      // If no date is selected, highlight the input and show the notification
+      if (this.book.pub_date === null) {
+        event.target[2].classList.add('is-danger')
+
+        this.$toast.open({
+          duration: 3000,
+          message: `Please select a Publish Date`,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+        return
+      }
+
+      // API Call
       this.createBook(this.book)
-      this.$toast.open(`<b>${this.book.title}</b> was added to your reading list.`)
+
+      // Success
+      this.$toast.open({
+        duration: 3000,
+        message: `<b>${this.book.title}</b> was added to your reading list.`,
+        position: 'is-bottom',
+        type: 'is-primary'
+      })
+
+      // Remove any highlights from invalid inputs
+      event.target[2].classList.remove('is-danger')
+
+      // Reset the data
       this.book = {
         title: '',
         author: '',
         details: '',
         pub_date: null
       }
-    }
-  },
-  filters: {
-    properCase(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
     }
   }
 }
