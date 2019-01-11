@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-    public $successStatus = 200;
-
     /**
      * login api
      *
@@ -29,12 +27,12 @@ class AuthController extends Controller
 
             return response()->json([
                 'data' => $success
-            ], $this->successStatus);
+            ], 200);
 
         } else {
 
             return response()->json([
-                'error' => 'Unauthorised'
+                'error' => 'Invalid email or password.'
             ], 401);
 
         }
@@ -68,7 +66,7 @@ class AuthController extends Controller
 
         return response()->json([
             'data' => $success
-        ], $this->successStatus);
+        ], 200);
     }
 
     public function logout()
@@ -83,6 +81,8 @@ class AuthController extends Controller
 
         $accessToken->revoke();
 
-        return response()->json(['status' => 200]);
+        return response()->json([
+            'status' => 200
+        ]);
     }
 }

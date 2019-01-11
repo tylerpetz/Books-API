@@ -6,12 +6,12 @@
         <p class="subtitle has-text-grey">Please login to proceed.</p>
         <div class="field">
           <div class="control">
-            <input class="input is-large" v-model="user.email" type="email" placeholder="Your Email" autofocus="">
+            <input class="input is-large" :class="{ 'is-danger': badLogin }" v-model="user.email" type="email" placeholder="Your Email" required>
           </div>
         </div>
         <div class="field">
           <div class="control">
-            <input class="input is-large" v-model="user.password" type="password" placeholder="Your Password">
+            <input class="input is-large" :class="{ 'is-danger': badLogin }" v-model="user.password" type="password" placeholder="Your Password" required>
           </div>
         </div>
         <div class="field">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import router from '@/router'
 
 export default {
@@ -45,6 +45,7 @@ export default {
       error: false
     }
   },
+  computed: mapState(['badLogin']),
   methods: {
     ...mapActions({
       checkLogin: 'checkLogin'

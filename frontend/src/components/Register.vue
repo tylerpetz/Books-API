@@ -85,19 +85,6 @@ export default {
 
       // API Call
       this.registerUser(this.user, this.remember_token)
-
-      // Todo: fix this
-      setTimeout(function () {
-        // Route back home
-        router.push('/')
-      }, 300)
-
-      this.$toast.open({
-        duration: 3000,
-        message: `Thanks for registering ${this.user.name}!`,
-        position: 'is-bottom',
-        type: 'is-primary'
-      })
     }
   }
 }

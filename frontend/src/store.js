@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import moment from 'moment'
 import { Toast } from 'buefy/dist/components/toast'
+import router from './router';
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     name: '',
     email: '',
     authenticated: false,
-    token: ''
+    token: '',
+    badLogin: false
   },
   mutations: {
     FETCH_BOOKS(state, books) {
@@ -38,6 +40,7 @@ export default new Vuex.Store({
       state.books.splice(index, 1)
     },
     LOGIN(state, payload) {
+      state.badLogin = false
       state.email = payload.user.email
       state.token = payload.authedUser.token
 
@@ -57,6 +60,8 @@ export default new Vuex.Store({
         position: 'is-bottom',
         type: 'is-success'
       })
+
+      router.push('/')
     },
     PERSIST_LOGIN(state) {
       state.token = window.localStorage.getItem('token')
@@ -99,12 +104,27 @@ export default new Vuex.Store({
       axios.post('/api/register', user).then(({ data }) => {
         let authedUser = data.data
         commit("LOGIN", { authedUser, user })
+      }).catch(() => {
+        Toast.open({
+          duration: 3000,
+          message: 'Something went wrong, are you already registered?',
+          position: 'is-bottom',
+          type: 'is-warning'
+        })
       })
     },
-    checkLogin({ commit }, user) {
-      axios.post('/api/login', user).then(({data}) => {
+    async checkLogin({ commit, state }, user) {
+      await axios.post('/api/login', user).then(({data}) => {
         let authedUser = data.data
         commit("LOGIN", { authedUser, user })
+      }).catch((res) => {
+        state.badLogin = true
+        Toast.open({
+          duration: 3000,
+          message: res.response.data.error,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
       })
     },
     checkUser({ commit }) {
@@ -118,6 +138,8 @@ export default new Vuex.Store({
     logout({ commit }) {
       axios.post('/api/logout').then(() => {
         commit("LOGOUT")
+      }).error((res) => {
+        console.log(res);
       })
     },
     fetchBooks({ commit }) {
