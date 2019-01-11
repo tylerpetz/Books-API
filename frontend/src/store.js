@@ -30,7 +30,7 @@ export default new Vuex.Store({
     },
     ADD_BOOK(state, book) {
       book.pub_date = moment(book.pub_date)
-      state.books.push(book)
+      state.books.ushift(book)
     },
     EDIT_BOOK(state, book) {
       console.log(book)

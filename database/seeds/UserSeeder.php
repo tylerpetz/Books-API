@@ -18,13 +18,13 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Tyler',
             'email' => 'tylerpetz@gmail.com',
-            'password' => 'admin',
+            'password' => 'tylerpetz',
         ]);
 
         User::create([
             'name' => 'test',
             'email' => 'test@gmail.com',
-            'password' => 'test',
+            'password' => 'testtest',
         ]);
     }
 }
