@@ -138,8 +138,6 @@ export default new Vuex.Store({
     logout({ commit }) {
       axios.post('/api/logout').then(() => {
         commit("LOGOUT")
-      }).error((res) => {
-        console.log(res);
       })
     },
     fetchBooks({ commit }) {
