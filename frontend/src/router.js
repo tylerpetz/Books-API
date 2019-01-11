@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import BookSingle from './components/BookSingle.vue'
-import Login from './components/Login.vue'
+import Book from './views/Book.vue'
+import Register from './components/Register.vue'
 
 Vue.use(Router)
 
@@ -15,15 +15,15 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    { 
+    {
       path: '/books/:id',
       name: 'book',
-      component: BookSingle
+      component: Book
     },
     {
-      path: '/login',
-      name: 'login',
-      component: Login
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ],
   scrollBehavior (to, from, savedPosition) {

@@ -14,15 +14,12 @@ use App\Book;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', 'AuthController@register');
+Route::post('login', 'AuthController@login');
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('logout', 'AuthController@logout');
 });
-
-Route::post('register', 'Auth\RegisterController@register');
-
-Route::post('login', 'Auth\LoginController@login');
-
-Route::post('logout', 'Auth\LoginController@logout');
 
 Route::group(['prefix' => 'books', 'middleware' => 'auth:api'], function() {
 

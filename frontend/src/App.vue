@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <section class="hero is-light is-bold">
+    <section class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
@@ -32,10 +32,6 @@ import { mapState } from 'vuex'
 export default {
   name: 'App',
   computed: mapState(['books']),
-  mounted() {
-    console.log('check auth')
-    /* this.$store.dispatch("fetchBooks") */       
-  },
 };
 </script>
 
@@ -49,7 +45,7 @@ export default {
     }
 
     a {
-      color: #363636;
+      color: white;
 
       .icon {
         margin-right: 0.75rem;
@@ -135,5 +131,13 @@ export default {
 
 .modal-card-title {
   text-transform: capitalize;
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+.logout {
+  margin-bottom: 1rem;
 }
 </style>

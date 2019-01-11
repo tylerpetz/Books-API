@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div 
+    <div
       v-for="book in orderedBooks()"
       :key="book.id">
       <div class="card">
@@ -37,7 +37,7 @@
 <script>
 import { mapActions } from 'vuex'
 import _ from 'lodash';
-import router from '../router'
+import router from '@/router'
 
 export default {
   name: 'BookList',
@@ -50,7 +50,8 @@ export default {
   props: ['books'],
   methods: {
     ...mapActions({
-      setBook: 'setBook',
+      fetchBooks: 'fetchBooks',
+      setBook: 'setBook'
     }),
     viewDetails(book) {
       this.setBook(book);
@@ -65,6 +66,9 @@ export default {
       else
         return _.orderBy(this.books, [books => books[this.currentOrder].toLowerCase()], this.currentDirection)
     }
+  },
+  mounted() {
+    this.fetchBooks();
   }
 }
 </script>

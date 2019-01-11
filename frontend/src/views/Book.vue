@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Logout />
     <div class="card">
       <div class="card-content">
         <div v-if="editingBook">
@@ -63,8 +64,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Logout from '@/components/Logout.vue'
 import moment from 'moment'
-import router from '../router'
+import router from '@/router'
 
 export default {
   name: 'Book',
@@ -73,10 +75,20 @@ export default {
       editingBook: false
     }
   },
+  components: {
+    Logout
+  },
+  computed: {
+    ...mapState(['selectedBook']),
+    fixDate() {
+      return moment(this.selectedBook.pub_date).format('MM/DD/YYYY')
+    }
+  },
   methods: {
     ...mapActions({
       updateBook: 'updateBook',
-      deleteBook: 'deleteBook'
+      deleteBook: 'deleteBook',
+      logout: 'logout'
     }),
     toggleEdit() {
       this.editingBook = !this.editingBook;
@@ -120,12 +132,6 @@ export default {
           router.push('/')
         }
       })
-    }
-  },
-  computed: {
-    ...mapState(['selectedBook']),
-    fixDate() {
-      return moment(this.selectedBook.pub_date).format('MM/DD/YYYY')
     }
   }
 }
